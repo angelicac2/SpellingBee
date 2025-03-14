@@ -34,6 +34,7 @@ public class SpellingBee {
     private ArrayList<String> words;
     public static final int DICTIONARY_SIZE = 143091;
     public static final String[] DICTIONARY = new String[DICTIONARY_SIZE];
+    private Scanner s = new Scanner (System.in);
 
     public SpellingBee(String letters) {
         this.letters = letters;
@@ -44,13 +45,23 @@ public class SpellingBee {
     //  Store them all in the ArrayList words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void generate() {
-        // YOUR CODE HERE — Call your recursive method!
+        //sort
     }
 
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
-    public void sort() {
-        // YOUR CODE HERE
+    public void sort(String letters, ArrayList<String> words) {
+
+    }
+
+    public void mergeSort(String letters, ArrayList<String> words, int left, int right) {
+        int lettersLength = letters.length();
+
+        // Make letters into an array
+        char[] arr = new char[lettersLength];
+        for (int i = 0; i < lettersLength; i++) {
+            arr[i] = letters.charAt(i);
+        }
     }
 
     // Removes duplicates from the sorted list.
