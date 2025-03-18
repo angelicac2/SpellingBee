@@ -45,23 +45,59 @@ public class SpellingBee {
     //  Store them all in the ArrayList words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
     public void generate() {
-        //sort
+        generateHelper("", letters);
     }
 
+    public String generateHelper(String newWord, String letters) {
+        String left;
+        String right;
+        // Base case
+        if (letters.length() == 0) {
+            return "";
+        }
+        for (int i = 0; i < letters.length(); i++) {
+            left = newWord + letters.charAt(i);
+            right = letters.substring(i) + letters.substring(i + 1);
+            generateHelper(left, right);
+        }
+    }
     // TODO: Apply mergesort to sort all words. Do this by calling ANOTHER method
     //  that will find the substrings recursively.
-    public void sort(String letters, ArrayList<String> words) {
-
+    public void sort(ArrayList<String> words) {
+        words = mergeSort(words);
     }
 
-    public void mergeSort(String letters, ArrayList<String> words, int left, int right) {
-        int lettersLength = letters.length();
+    /*
+    public ArrayList<String> mergeArrayLists(ArrayList<String> rightSplit, ArrayList<String> leftSplit) {
 
-        // Make letters into an array
-        char[] arr = new char[lettersLength];
-        for (int i = 0; i < lettersLength; i++) {
-            arr[i] = letters.charAt(i);
+    }
+    */
+
+    public ArrayList<String> mergeSort(ArrayList<String> words) {
+
+        /*
+        // Base case
+        if (words.size() == 1) {
+            return words;
         }
+        // Setup
+        int midPoint = words.size() / 2;
+        ArrayList<String> rightSplit = new ArrayList<String>();
+        ArrayList<String> leftSplit = new ArrayList<String>();
+        for (int i = midPoint; i < words.size(); i++) {
+            rightSplit.add(words.get(i));
+        }
+        for (int i = 0; i < midPoint; i++) {
+            leftSplit.add(words.get(i));
+        }
+        // recursive step
+        rightSplit = mergeSort(rightSplit);
+        leftSplit = mergeSort(leftSplit);
+
+        return mergeArrayLists(leftSplit, rightSplit);
+
+         */
+
     }
 
     // Removes duplicates from the sorted list.
@@ -78,8 +114,22 @@ public class SpellingBee {
 
     // TODO: For each word in words, use binary search to see if it is in the dictionary.
     //  If it is not in the dictionary, remove it from words.
-    public void checkWords() {
-        // YOUR CODE HERE
+    public String checkWords(ArrayList<String> words, int low, int high) {
+        int wordsLength = words.size();
+        int mid = wordsLength / 2;
+        while (low < high){
+            if (words.get(mid).compareTo(DICTIONARY[low]) == 0) {
+                return words.get(mid);
+            }
+            if (words.get(mid).compareTo(DICTIONARY[low]) == 1) {
+                return checkWords(this.words, low, mid - 1);
+            }
+            if (words.get(mid).compareTo(DICTIONARY[low]) == -1) {
+                return checkWords(this.words, mid + 1, high);
+            }
+            words.remove(low);
+            low++;
+        }
     }
 
     // Prints all valid words to wordList.txt
